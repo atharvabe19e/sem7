@@ -1,0 +1,89 @@
+import java.util.Scanner;
+
+class Main {
+	public static void main(String[] args)
+	{
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Enter number of items");
+        int n = sc.nextInt();
+        
+        System.out.println("Enter weight of knapsack");
+        float val = sc.nextInt();
+        
+		float[][] arr = new float[n][2];
+		float[] rat = new float[n];
+		int j=0;
+		int i;
+		float t2,t3,maxi;
+		float t1;
+		
+		for (i = 0; i < n; i++)     
+		{
+            System.out.println("Enter weight of item:" +i);
+            arr[i][0]= sc.nextInt();
+            System.out.println("Enter value of item:" +i);
+            arr[i][1]= sc.nextInt();
+            
+            rat[i]= (float) arr[i][1]/arr[i][0] ;
+        }
+        
+        for(i = 0; i < n; i++) 
+        {
+            System.out.println(arr[i][0] + " " + arr[i][1]+" "+rat[i]);
+        }
+        
+        
+        for(i=0;i<n-1;i++)
+        {   maxi=i+1;
+            for(j=i+1;j<n;j++)
+            {
+                if(rat[i]<rat[j])
+                {
+                  
+                    t1=rat[i];
+                    t2=arr[i][0];
+                    t3=arr[i][1];
+                    
+                    rat[i]=rat[j];
+                    arr[i][0]=arr[j][0];
+                    arr[i][1]=arr[j][1];
+                    
+                    rat[j]=t1;
+                    arr[j][0]=t2;
+                    arr[j][1]=t3;
+                }
+            
+            }
+        }
+        System.out.println("\n after sorting \n");
+        for(i = 0; i < n; i++) 
+        {
+            System.out.println(arr[i][0] + " " + arr[i][1]+" "+rat[i]);
+        }
+        
+        t2=0;
+        float rem=val, tval=0;
+        while(val!=0 || val>0)
+        {
+            if(arr[(int)t2][0]< rem)
+            {
+                rem=rem-arr[(int)t2][0];
+                tval=(float)tval+arr[(int)t2][1];
+            
+                
+            }
+            else
+            {
+                t1=rem/arr[(int)t2][0];
+                tval=(float)tval+(arr[(int)t2][1]*t1);
+                val=0;
+            }
+            t2=t2+1;
+        }
+        
+
+		System.out.println("Total value of knacksack: " + tval);
+	}
+}
+
